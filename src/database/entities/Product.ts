@@ -22,6 +22,9 @@ export class Product {
 	@Column({type: "float", nullable: true})
 	montly_price?: number;
 
+	@Column({type: "varchar", nullable: true})
+	legal: string;
+
 	@CreateDateColumn({type: "timestamp", nullable: false})
 	created_at?: Date;
 
@@ -47,6 +50,7 @@ export class Product {
 		product.plan = data.plan;
 		product.description = data.description;
 		product.montly_price = data.montly_price;
+		product.legal = data.legal;
 
 		// Saving the created user in the database.
 		product = await AppDataSource.getRepository(Product).save(product);

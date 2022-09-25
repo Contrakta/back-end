@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, OneToOne, UpdateDateCo
 import { randomUUID } from "crypto";
 import { AppDataSource } from "../data-source";
 import { User } from "./User";
+import { PaymentMethod } from "./PaymentMethod";
 
 @Entity("bank_account")
 export class BankAccount {
@@ -32,6 +33,9 @@ export class BankAccount {
 
 	@ManyToOne(() => User, user => user.bank_account, {nullable: false, createForeignKeyConstraints: true, onDelete: "CASCADE", onUpdate: "CASCADE"})
 	user: User;
+
+	@OneToMany(() => PaymentMethod, payment_method => payment_method.bank_account)
+	payment_method: PaymentMethod;
 
 	@BeforeInsert()
 	setId() {

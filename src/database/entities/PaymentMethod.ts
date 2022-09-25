@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { AppDataSource } from "../data-source";
 import { User } from "./User";
 import { Contract } from "./Contract";
+import { BankAccount } from "./BankAccount";
 
 @Entity("payment_method")
 export class PaymentMethod {
@@ -22,8 +23,11 @@ export class PaymentMethod {
 	@UpdateDateColumn({type: "timestamp", nullable: false})
 	updated_at?: Date;
 
-	@OneToOne(() => Contract, contract => contract.payment_method)
+	@ManyToOne(() => Contract, contract => contract.payment_method)
 	contract?: Contract;
+
+	@ManyToOne(() => BankAccount, bank_account => bank_account.payment_method)
+	bank_account?: BankAccount;
 
 	@BeforeInsert()
 	setId() {

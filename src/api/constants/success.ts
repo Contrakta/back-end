@@ -14,5 +14,14 @@ export const success = {
 	accounts_refreshed_successfully: {
 		code: 1203,
 		title: "Contas bancárias atualizadas com sucesso."
+	},
+	product_created_successfully: {
+		code: 1204,
+		title: "Produto criado com sucesso."
+	},
+	contract_created_successfully: {
+		code: 1205,
+		title: "Contrato criado com sucesso."
 	}
+
 };

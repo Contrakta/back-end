@@ -5,6 +5,7 @@ import express  from "express";
 // Importing all required routes.
 import userRoutes from "./routes/userRoutes";
 import bankAccountRoutes from "./routes/bankAccountRoutes";
+import productRoutes from "./routes/productRoutes";
 
 // Instacing the app.
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 // Setting up the application routes.
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/bank-account", bankAccountRoutes);
+app.use("/api/v1/product", productRoutes);
 
 // Exporting app.
 export { app };

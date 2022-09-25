@@ -38,8 +38,8 @@ export class Contract {
 	@ManyToOne(() => User, user => user.contract)
 	user: User;
 
-	@OneToOne(() => PaymentMethod, payment_method => payment_method.contract)
-	payment_method;
+	@OneToMany(() => PaymentMethod, payment_method => payment_method.contract)
+	payment_method: PaymentMethod[];
 
 	@BeforeInsert()
 	setId() {
