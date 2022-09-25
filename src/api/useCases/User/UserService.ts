@@ -95,4 +95,47 @@ export const UserService = {
 
 	},
 
+	// Instancing the list active contracts method.
+	async listActiveContracts( id : string) {
+
+		const data = await AppDataSource.getRepository(User).findOne({
+			where: {
+				id
+			},
+			relations: ["contract"]
+		});
+		
+		// Returning success or error response depending on got data from database.
+		if(data) {
+
+			// Returning the got user data with its account confirmation status.
+			return {
+				status: 200, 
+				success: {
+					code: success.user_informations_grabbed.code,
+					title: success.user_informations_grabbed.title,
+					data: data
+				}
+			};
+
+		} else {
+
+			// If has no user with the provided id, returning an error response.
+			return {
+				status: 400,
+				error: {
+					code: errors.user_not_found.code,
+					title: errors.user_not_found.title,
+					description: errors.user_not_found.description,
+					source: {
+						pointer: __filename,
+						line: getCurrentLine().line
+					}
+				}
+			};
+
+		}
+
+	}
+
 };
