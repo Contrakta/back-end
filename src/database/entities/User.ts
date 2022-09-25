@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { AppDataSource } from "../data-source";
 import { IUser } from "../../api/useCases/User/IUser";
 import { BankAccount } from "./BankAccount";
+import { Contract } from "./Contract";
 
 @Entity("user")
 export class User {
@@ -33,6 +34,9 @@ export class User {
 
 	@OneToMany(() => BankAccount, bank_account => bank_account.user)
 	bank_account?: BankAccount;
+
+	@OneToMany(() => Contract, contract => contract.user)
+	contract?: Contract;
 
 	@BeforeInsert()
 	setId() {
