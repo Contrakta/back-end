@@ -1,0 +1,53 @@
+{
+  "name": "contrakta",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --ignore-watch node_modules --respawn --transpile-only -r dotenv/config src/server.ts",
+    "migration:create": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:create",
+    "migration:generate": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d src/database/data-source.ts ./src/database/migrations/default",
+    "migration:up": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run -d src/database/data-source.ts",
+    "migration:down": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert -d src/database/data-source.ts"
+  },
+  "author": "Elias Biondo",
+  "license": "CC-BY-NC-ND-4.0",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "get-current-line": "^6.6.0",
+    "joi": "^17.6.0",
+    "nodemailer": "^6.7.7",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "secure-pin": "^1.0.14",
+    "typeorm": "^0.3.7",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.6",
+    "@types/joi": "^17.2.3",
+    "@types/nodemailer": "^6.4.4",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.20.0",
+    "jest": "^28.1.3",
+    "supertest": "^6.2.4",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
