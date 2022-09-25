@@ -84,6 +84,7 @@ export class User {
 			where: {
 				id
 			},
+			relations: ["bank_account"]
 		});
 
 		// Returning the found data.

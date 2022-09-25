@@ -5,6 +5,11 @@ import { Request, Response, NextFunction } from "express";
 // Importing all required files.
 import { UserService } from "./UserService";
 import { errors } from "../../constants/errors";
+import axios from "axios";
+import { AppDataSource } from "../../../database/data-source";
+import { User } from "../../../database/entities/User";
+import { success } from "../../constants/success";
+import { BankAccount } from "../../../database/entities/BankAccount";
 
 // Instacing the user controller.
 export const UserController = {
@@ -65,6 +70,65 @@ export const UserController = {
 		}
 	
 	},
+
+	async refreshOpenFinanceAvailableAccounts(req : Request, res : Response, next ?: NextFunction) {
+
+		// Pegando as informações sobre o usuário.
+		const customer = await AppDataSource.getRepository(User).findOne({
+			where: {
+				id: req.params.id
+			}
+		});
+
+		// Getting all user accounts from open finance api.
+		try {
+
+			// Getting the open finance data about the customer.
+			const response = await axios.get("https://challenge.hackathonbtg.com/accounts/v1/accounts", {
+				headers: {
+					organizationid:"69665991-da55-4aac-a1f2-32d23daba8fe",
+					customerid: customer.cpf,
+				}
+			});
+
+			const bankAccountData = {
+
+				compe_code: response.data.data[0].compeCode,
+				bank_name: response.data.data[0].organizationName,
+				branch_code: response.data.data[0].branchCode,
+				number: response.data.data[0].number,
+				check_digit: response.data.data[0].checkDigit,
+				customer
+
+			};
+			
+
+			// Instacing a new bank account object.
+			const bank_account = new BankAccount;
+
+			// Saving the bank accounts in the database.
+			const created_bank_account = await bank_account.store(bankAccountData);
+
+			
+			// Returning the created user with its account confirmation status.
+			return res.status(200).json({
+				status: 200, 
+				success: {
+					code: success.accounts_refreshed_successfully.code,
+					title: success.accounts_refreshed_successfully.title,
+					data: response.data.data
+				}
+			});
+
+			
+		} catch (error) {
+
+			console.error(error);
+			
+		}
+		  
+
+	}
 
 	// async getAll(req : Request, res : Response, next : NextFunction) {
 

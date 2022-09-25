@@ -10,5 +10,9 @@ export const success = {
 	bank_account_created: {
 		code: 1202,
 		title: "Conta bancária criada com sucesso."
+	},
+	accounts_refreshed_successfully: {
+		code: 1203,
+		title: "Contas bancárias atualizadas com sucesso."
 	}
 };

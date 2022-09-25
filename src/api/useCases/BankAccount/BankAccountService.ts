@@ -10,7 +10,7 @@ import { AppDataSource } from "../../../database/data-source";
 import { success } from "../../constants/success";
 import { BankAccount } from "../../../database/entities/BankAccount";
 
-// Instacing a new user object.
+// Instacing a new bank account object.
 const bank_account = new BankAccount;
 
 // Exporting the user service.
