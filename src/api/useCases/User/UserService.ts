@@ -112,9 +112,9 @@ export const UserService = {
 			return {
 				status: 200, 
 				success: {
-					code: success.user_informations_grabbed.code,
-					title: success.user_informations_grabbed.title,
-					data: data
+					code: success.active_contract_list_grabbed_successfully.code,
+					title: success.active_contract_list_grabbed_successfully.title,
+					data: data.contract,
 				}
 			};
 

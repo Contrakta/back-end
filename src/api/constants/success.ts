@@ -22,6 +22,10 @@ export const success = {
 	contract_created_successfully: {
 		code: 1205,
 		title: "Contrato criado com sucesso."
+	},
+	active_contract_list_grabbed_successfully: {
+		code: 1206,
+		title: "Contratos ativos do usuário capturados com sucesso."
 	}
 
 };
