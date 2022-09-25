@@ -1,3 +1,22 @@
+import * as child from "child_process";
+
+function run(cmd) {
+
+	return new Promise((resolve, reject) => {
+
+	  child.exec(cmd, (error, stdout, stderr) => {
+
+			if (error) return reject(error);
+			if (stderr) return reject(stderr);
+
+			resolve(stdout);
+	  
+		});
+	
+	});
+
+}
+  
 // Importing all require libraries.
 import getCurrentLine from "get-current-line";
 
@@ -68,7 +87,7 @@ export const ProductService = {
 
 		contract.user = user;
 
-		contract = await AppDataSource.getRepository(Contract).save(contract);
+		
 
 		const paymentMethods = [];
 
@@ -104,6 +123,14 @@ export const ProductService = {
 		
 		contract.payment_method = paymentMethods;
 
+		const transaction_hash  = await run("npx hardhat run scripts/deploy.js --network goerli") as string;
+
+		contract.transaction_hash = transaction_hash.trim();
+
+		contract.confirm_date = new Date();
+
+		contract = await AppDataSource.getRepository(Contract).save(contract);
+
 		// Returning the created user with its account confirmation status.
 		return {
 			status: 201, 
@@ -113,6 +140,7 @@ export const ProductService = {
 				data: await AppDataSource.getRepository(Contract).findOne({where: {id: contract.id}, relations: ["payment_method","user"]})
 			}
 		};
+
 
 	},
 
