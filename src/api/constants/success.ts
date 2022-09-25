@@ -7,4 +7,8 @@ export const success = {
 		code: 1201,
 		title: "Usuário criado com sucesso.",
 	},
+	bank_account_created: {
+		code: 1202,
+		title: "Conta bancária criada com sucesso."
+	}
 };

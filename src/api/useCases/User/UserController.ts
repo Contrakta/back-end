@@ -13,14 +13,11 @@ export const UserController = {
 
 		try {
 
-			const response = await UserService.store({email_address: req.body.email_address});
+			const response = await UserService.store({first_name: req.body.first_name, last_name: req.body.last_name, cpf: req.body.cpf, date_of_birth: req.body.date_of_birth, email_address: req.body.email_address});
 
 			return res.status(response.status).json(response);
 		
 		} catch(error) {
-
-
-			console.log(error);
 
 			return res.status(500).json({
 				status: 500,

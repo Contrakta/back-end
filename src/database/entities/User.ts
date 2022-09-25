@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, OneToOne, UpdateDateCo
 import { randomUUID } from "crypto";
 import { AppDataSource } from "../data-source";
 import { IUser } from "../../api/useCases/User/IUser";
+import { BankAccount } from "./BankAccount";
 
 @Entity("user")
 export class User {
@@ -10,10 +11,13 @@ export class User {
 	id: string;
 
 	@Column({type: "varchar", nullable: true})
-	first_name?: string;
+	first_name: string;
 
 	@Column({type: "varchar", nullable: true})
-	last_name?: string;
+	last_name: string;
+
+	@Column({type: "varchar", nullable: true})
+	cpf: string;
 
 	@Column({type: "date", nullable: true})
 	date_of_birth?: Date;
@@ -21,17 +25,14 @@ export class User {
 	@Column({type: "varchar", nullable: false})
 	email_address: string;
 
-	@Column({type: "varchar", nullable: true})
-	phone_number?: string;
-
-	@Column({type: "varchar", nullable: true})
-	cpf?: string;
-
 	@CreateDateColumn({type: "timestamp", nullable: false})
 	created_at?: Date;
 
 	@UpdateDateColumn({type: "timestamp", nullable: false})
 	updated_at?: Date;
+
+	@OneToMany(() => BankAccount, bank_account => bank_account.user)
+	bank_account?: BankAccount;
 
 	@BeforeInsert()
 	setId() {
@@ -62,8 +63,11 @@ export class User {
 		let user = new User;
 
 		// Setting up the instancied user email address as the received email address.
+		user.first_name = data.first_name;
+		user.last_name = data.last_name;
+		user.cpf = data.cpf;
+		user.date_of_birth = data.date_of_birth;
 		user.email_address = data.email_address;
-
 
 		// Saving the created user in the database.
 		user = await AppDataSource.getRepository(User).save(user);

@@ -46,7 +46,7 @@ export const UserService = {
 				success: {
 					code: success.user_created.code,
 					title: success.user_created.title,
-					data: await AppDataSource.getRepository(User).findOne({where: {id: created_user.id}, relations: ["account_confirmation_status","role"]})
+					data: await AppDataSource.getRepository(User).findOne({where: {id: created_user.id}})
 				}
 			};
 		
