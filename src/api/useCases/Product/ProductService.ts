@@ -58,6 +58,8 @@ export const ProductService = {
 
 	async buy(data) {
 
+		console.log(data);
+
 		// Instancing a new contract.
 		let contract = new Contract;
 
@@ -72,7 +74,6 @@ export const ProductService = {
 			}
 		});
 
-		
 		contract.product = product;
 
 		// Getting the user info.
@@ -86,8 +87,6 @@ export const ProductService = {
 		contract.conditions = product.legal;
 
 		contract.user = user;
-
-		
 
 		const paymentMethods = [];
 

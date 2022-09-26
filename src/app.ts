@@ -1,6 +1,7 @@
 // Importing all required libraries.
 import "reflect-metadata";
 import express  from "express";
+import cors from "cors";
 
 // Importing all required routes.
 import userRoutes from "./routes/userRoutes";
@@ -9,6 +10,9 @@ import productRoutes from "./routes/productRoutes";
 
 // Instacing the app.
 const app = express();
+
+// Setting up cors.
+app.use(cors());
 
 // Only looks at requests where Content-Type header matches json.
 app.use(express.json());

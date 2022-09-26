@@ -8,6 +8,8 @@ import { errors } from "../../constants/errors";
 import { User } from "../../../database/entities/User";
 import { AppDataSource } from "../../../database/data-source";
 import { success } from "../../constants/success";
+import { Product } from "../../../database/entities/Product";
+import { Contract } from "ethers";
 
 // Instacing a new user object.
 const user = new User;
@@ -104,7 +106,7 @@ export const UserService = {
 			},
 			relations: ["contract"]
 		});
-		
+
 		// Returning success or error response depending on got data from database.
 		if(data) {
 

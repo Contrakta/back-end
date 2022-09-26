@@ -59,6 +59,7 @@ export class Contract {
 		contract.confirm_date = data.confirm_date;
 		contract.duration_time_in_months = data.duration_time_in_months;
 		contract.conditions = data.conditions;
+		contract.product = data.product;
 
 		// Saving the created user in the database.
 		contract = await AppDataSource.getRepository(Contract).save(contract);
